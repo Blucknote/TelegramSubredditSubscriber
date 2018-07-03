@@ -1,4 +1,3 @@
-states.yml
-conf.yml
+*yml
 *.db 
 \__pycache__

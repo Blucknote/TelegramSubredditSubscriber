@@ -3,8 +3,6 @@ import dbactions
 import tgbot
 import yaml
 
-conf = yaml.load(open('conf.yml','r').read())
-
 check_state = fsm.check_state
 
 def validator(name):
@@ -251,14 +249,4 @@ message_handlers = [cancel, start, subscriptions, subscribe, unsubscribe]
 tgbot.message_handlers.extend(message_handlers)
 tgbot.callbacks_handlers.extend([dialog])
 
-
-if conf['webhook']:
-    resp = tgbot.set_webhook('%s%s' % (conf['domain'],conf['token']), conf['ssl'])
-    print(resp.read().decode('utf-8'))
-    tgbot.start_server()
-else:
-    #polling
-    while True:
-        tgbot.on_update(
-            tgbot.get_updates(tgbot.lastmsg + 1)
-        )
+tgbot.start()
